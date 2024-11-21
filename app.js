@@ -1,107 +1,89 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 const server = express();
 const { readFile } = require('fs').promises;
-const ejs = require('ejs');
 
+// Configuração do Mongoose e variáveis de ambiente
 require('dotenv').config();
 
-
-console.log(process.env);  // Verifique todas as variáveis carregadas
-
 const port = 8080;
-console.log(process.env.URI);
-const client = new MongoClient(process.env.URI);
-const dataBaseName = "recipe_site";
-const collectionName = "recipes";
 
+// Nome do banco de dados
+const dataBaseName = "receitasDB";
 
-/* -------------------teste ------------------------*/
-// const mongoose = require('mongoose');
+// Defina o esquema para a coleção
+const receitaSchema = new mongoose.Schema({
+  nome: String,
+  ingredientes: [String],
+  descricao: String,
+  media_avaliacoes: Number,
+  modo_de_preparo: [String],
+  subtitulo: String,
+  tempo_de_preparo: Number,
+  total_avaliacoes: Number,
+  imagem: Buffer, // Se a imagem for binária, utilize Buffer
+});
 
-// // Conectar ao MongoDB
-// mongoose.connect('mongodb://localhost:27017/receitasDB', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+// Criando o modelo Receita
+const Receita = mongoose.model('Receita', receitaSchema);
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'Erro de conexão:'));
-// db.once('open', () => {
-//   console.log('Conectado ao MongoDB com sucesso!');
-// });
+// Conectando ao MongoDB
+mongoose.connect(process.env.URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Conectado ao MongoDB com sucesso!');
+  })
+  .catch(err => {
+    console.error('Erro ao conectar ao MongoDB:', err);
+  });
 
-// const receitaSchema = new mongoose.Schema({
-//     nome: String,
-//     ingredientes: [String],
-//     modoPreparo: String,
-//     tempoPreparo: String,
-//   });
-  
-//   const Receita = mongoose.model('Receita', receitaSchema);
-
-  
-//   app.get('/', async (req, res) => {
-//     try {
-//       const receitas = await Receita.find();
-//       res.render('index', { receitas });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Erro ao carregar receitas.');
-//     }
-//   });
-//   app.get('/receita/:nome', async (req, res) => {
-//     try {
-//       const receita = await Receita.findOne({ nome: req.params.nome });
-//       if (receita) {
-//         res.render('receita', { receita });
-//       } else {
-//         res.status(404).send('Receita não encontrada.');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Erro ao carregar a receita.');
-//     }
-//   });
-    
-
-/* -------------------teste ------------------------*/
-
-
+// Configuração do EJS
 server.set('view engine', 'ejs');
-
 server.use(express.static('public'));
 
-server.get('/', async (request, response) => {
-    response.send(await readFile('./index.html', 'utf8'));
+// Rota para listar todas as receitas
+server.get('/', async (req, res) => {
+  try {
+    const receitas = await Receita.find(); // Busca todas as receitas no banco de dados
+    res.render('index', { receitas }); // Renderiza a página index.ejs com as receitas
+  } catch (error) {
+    console.error("Erro ao buscar receitas:", error);
+    res.status(500).send("Erro ao carregar receitas.");
+  }
 });
 
-/*---------------------teste----------*/
+// Endpoint para buscar receitas específicas
+server.get('/receitas/:nome', async (req, res) => {
+  try {
+    const nomeReceita = req.params.nome.charAt(0).toUpperCase() + req.params.nome.slice(1);
+    console.log(`Buscando receita: ${nomeReceita}`);
 
-server.get('/', async (request, response) => {
-    try {
-        const receitas = await client.db(dataBaseName).collection(collectionName).find().toArray();
-        response.render('index', { receitas });
-    } catch (error) {
-        console.error(error);
-        response.status(500).send('Erro ao carregar as receitas.');
+    // Buscar a receita no banco de dados
+    const receita = await Receita.findOne({ nome: nomeReceita });
+
+    if (!receita) {
+      return res.status(404).send('Receita não encontrada.');
     }
+
+    // Convertendo a imagem em formato base64 para exibição
+    const receitaData = {
+      ...receita.toObject(),
+      imagem: `data:image/png;base64,${receita.imagem.toString('base64')}`,
+    };
+
+    res.render('recipe', { receita: receitaData }); // Renderiza a página recipe.ejs com os dados da receita
+  } catch (error) {
+    console.error('Erro ao buscar receita:', error);
+    res.status(500).send('Erro ao carregar a receita.');
+  }
 });
 
-/*---------------------teste----------*/
-
-
-server.get('/receitas*', async (request, response) => {
-    const name = request.path.split("/").pop();
-    upperName = name.charAt(0).toUpperCase() + name.slice(1);
-    data = await client.db(dataBaseName).collection(collectionName).findOne({ nome: upperName });
-    data.imagem = "data:image/svg+xml;base64, " + data.imagem;
-    response.render('recipe', data);
+// Página 404 para rotas inexistentes
+server.use(async (req, res) => {
+  res.status(404).send(await readFile('./404.html', 'utf8'));
 });
 
-server.use(async (request, response) => {
-    response.status(404).send(await readFile('./404.html', 'utf8'));
-});
-
-server.listen(process.env.PORT || port, () => console.log(`App available on http://localhost:${port}`));
-
+// Inicialização do servidor
+server.listen(process.env.PORT || port, () => console.log(`App disponível em http://localhost:${port}`));
