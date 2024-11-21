@@ -1,0 +1,31 @@
+{
+    "_id": {
+        "$oid": "64b186c2054ee775ffe12d34"
+    },
+    "ingredientes": [
+        "1 pacote de bolacha maisena",
+        "150 g de manteiga derretida",
+        "1 lata de leite condensado",
+        "1/2 xícara de suco de limão",
+        "1 lata de creme de leite",
+        "Raspas de limão para decorar"
+    ],
+    "descricao": "Uma torta leve e refrescante, perfeita para dias quentes.",
+    "media_avaliacoes": {
+        "$numberDouble": "0.0"
+    },
+    "modo_de_preparo": [
+        "Triture a bolacha maisena e misture com a manteiga derretida até formar uma farofa.",
+        "Forre uma forma de fundo removível com a farofa, pressionando bem, e leve ao forno a 180°C por 10 minutos. Reserve.",
+        "Misture o leite condensado com o suco de limão até obter um creme espesso. Adicione o creme de leite e misture bem.",
+        "Despeje o creme sobre a base da torta, decore com raspas de limão e leve à geladeira por no mínimo 2 horas antes de servir."
+    ],
+    "nome": "Torta de Limão",
+    "subtitulo": "Uma sobremesa cítrica e deliciosa",
+    "tempo_de_preparo": {
+        "$numberInt": "30"
+    },
+    "total_avaliacoes": {
+        "$numberInt": "0"
+    }
+}

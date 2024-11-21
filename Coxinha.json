@@ -1,0 +1,34 @@
+{
+    "_id": {
+        "$oid": "64b186c2054ee775ffe12d33"
+    },
+    "ingredientes": [
+        "1 kg de farinha de trigo",
+        "1 litro de caldo de frango",
+        "2 colheres de manteiga",
+        "1 kg de peito de frango desfiado",
+        "2 dentes de alho picados",
+        "1 cebola picada",
+        "Salsinha a gosto",
+        "Farinha de rosca para empanar",
+        "Óleo para fritar"
+    ],
+    "descricao": "Um salgado irresistível com recheio cremoso e crosta crocante.",
+    "media_avaliacoes": {
+        "$numberDouble": "0.0"
+    },
+    "modo_de_preparo": [
+        "Em uma panela, aqueça o caldo de frango com a manteiga e adicione a farinha de trigo aos poucos, mexendo até formar uma massa homogênea. Deixe esfriar.",
+        "Refogue o alho e a cebola, acrescente o frango desfiado e tempere com sal e salsinha.",
+        "Molde a massa em formato de coxinha, recheie com o frango e feche bem.",
+        "Passe as coxinhas na farinha de rosca e frite em óleo quente até dourar."
+    ],
+    "nome": "Coxinha",
+    "subtitulo": "O salgado brasileiro mais amado",
+    "tempo_de_preparo": {
+        "$numberInt": "60"
+    },
+    "total_avaliacoes": {
+        "$numberInt": "0"
+    }
+}

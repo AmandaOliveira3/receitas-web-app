@@ -69,9 +69,9 @@ server.get('/receitas/:nome', async (req, res) => {
 
     // Convertendo a imagem em formato base64 para exibição
     const receitaData = {
-      ...receita.toObject(),
-      imagem: `data:image/png;base64,${receita.imagem.toString('base64')}`,
-    };
+        ...receita.toObject(),
+        imagem: receita.imagem ? `data:image/png;base64,${receita.imagem.toString('base64')}` : null,
+      };      
 
     res.render('recipe', { receita: receitaData }); // Renderiza a página recipe.ejs com os dados da receita
   } catch (error) {

@@ -2,47 +2,50 @@
     <script src="/js/reviewrecipe.js"></script>
   
     <div class="container" id="container">
-      <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-      <h1 id='header'>
-        <%= receita.nome %>
-      </h1>
-      <img src="<%= receita.imagem %>" alt="Imagem da receita" style="width:500px;height:500px;">
-      <h3 class="subtitle">
-        <%= receita.subtitulo %>
-      </h3>
-      <p class="description">
-        <%= receita.descricao %>
-      </p>
-      <div>
-        <h4 class="ingredients">Ingredientes</h4>
-        <ul>
-          <% for(let i = 0; i < receita.ingredientes.length; i++) { %>
-            <li><%= receita.ingredientes[i] %></li>
-          <% } %>
-        </ul>
-      </div>
-      <div id='recipe'>
-        <h4 class="recipe">Modo de preparo</h4>
-        <h5 class="time">Tempo: <%= receita.tempo_de_preparo %> minutos</h5>
-        <ol>
-          <% for(let i = 0; i < receita.modo_de_preparo.length; i++) { %>
-            <li><%= receita.modo_de_preparo[i] %></li>
-          <% } %>
-        </ol>
-      </div>
+        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+        <h1 id='header'>
+            <%= receita.nome %>
+        </h1>
+        
+        <% if (receita.nome === "Brigadeiro") { %>
+            <img src="<%= receita.imagem %>" alt="Imagem da receita" style="width:500px;height:500px;">
+        <% } %>
+        
+        <h3 class="subtitle">
+            <%= receita.subtitulo %>
+        </h3>
+        <p class="description">
+            <%= receita.descricao %>
+        </p>
+        <div>
+            <h4 class="ingredients">Ingredientes</h4>
+            <ul>
+                <% for(let i = 0; i < receita.ingredientes.length; i++) { %>
+                    <li><%= receita.ingredientes[i] %></li>
+                <% } %>
+            </ul>
+        </div>
+        <div id='recipe'>
+            <h4 class="recipe">Modo de preparo</h4>
+            <h5 class="time">Tempo: <%= receita.tempo_de_preparo %> minutos</h5>
+            <ol>
+                <% for(let i = 0; i < receita.modo_de_preparo.length; i++) { %>
+                    <li><%= receita.modo_de_preparo[i] %></li>
+                <% } %>
+            </ol>
+        </div>
   
-      <h1>Dê uma nota para esta delícia!</h1>
-      <div class="rating" id="starRating">
-        <span onclick="rate(1)">&#9734;</span>
-        <span onclick="rate(2)">&#9734;</span>
-        <span onclick="rate(3)">&#9734;</span>
-        <span onclick="rate(4)">&#9734;</span>
-        <span onclick="rate(5)">&#9734;</span>
-      </div>
+        <h1>Dê uma nota para esta delícia!</h1>
+        <div class="rating" id="starRating">
+            <span onclick="rate(1)">&#9734;</span>
+            <span onclick="rate(2)">&#9734;</span>
+            <span onclick="rate(3)">&#9734;</span>
+            <span onclick="rate(4)">&#9734;</span>
+            <span onclick="rate(5)">&#9734;</span>
+        </div>
   
-      <a href="#header">Retornar ao topo</a>
-      <p></p>
-      <a href="../">Retornar à página principal</a>
+        <a href="#header">Retornar ao topo</a>
+        <p></p>
+        <a href="../">Retornar à página principal</a>
     </div>
-  </main>
-  
+</main>

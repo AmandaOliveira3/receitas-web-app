@@ -1,0 +1,30 @@
+{
+    "_id": {
+        "$oid": "64b186c2054ee775ffe12d32"
+    },
+    "ingredientes": [
+        "1 lata de leite condensado",
+        "2 latas de leite (use a medida da lata de leite condensado)",
+        "3 ovos",
+        "1 xícara de açúcar"
+    ],
+    "descricao": "Uma sobremesa clássica e cremosa que agrada a todos.",
+    "media_avaliacoes": {
+        "$numberDouble": "0.0"
+    },
+    "modo_de_preparo": [
+        "Caramelize o açúcar em uma forma de pudim, espalhando por todo o fundo.",
+        "Bata no liquidificador o leite condensado, o leite e os ovos até obter uma mistura homogênea.",
+        "Despeje a mistura na forma caramelizada e leve ao forno em banho-maria a 180°C por aproximadamente 1 hora e 30 minutos.",
+        "Deixe esfriar, desenforme e leve à geladeira antes de servir."
+    ],
+    "nome": "Pudim de Leite Condensado",
+    "subtitulo": "A sobremesa favorita dos brasileiros",
+    "tempo_de_preparo": {
+        "$numberInt": "90"
+    },
+    "total_avaliacoes": {
+        "$numberInt": "0"
+    }
+}
+
