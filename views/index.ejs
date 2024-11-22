@@ -12,13 +12,17 @@
     <h1 id='header'>Receitas incríveis para você!</h1>
     <img src='images/chef.svg' alt='um chapéu de cozinheiro' style="width:800px;height:450px;">
     <h3 id='imagelabel'>Uma coletânea de receitas do chefe</h3>
-    <ul>
-        <% receitas.forEach(function(receita) { %>
-            <li><a href="/receitas/<%= receita.nome %>">
-                    <%= receita.nome %>
-                </a></li>
-            <% }); %>
-    </ul>
+    <div>
+        <ul>
+            <% receitas.forEach(function(receita) { %>
+                <li><a href="/receitas/<%= receita.nome %>">
+                        <%= receita.nome %>
+                    </a></li>
+                <% }); %>
+        </ul>
+
+    </div>
+    <a href="#header">Retornar ao topo</a>
 </body>
 
 </html>
